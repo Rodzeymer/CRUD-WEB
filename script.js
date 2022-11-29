@@ -2,6 +2,10 @@
 
 //Rede - COmeçando o microblog
 
+const $meuForm = document.querySelector('form')
+
+
+
 const aloner = {
     usuarios:[
         {
