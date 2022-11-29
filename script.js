@@ -5,8 +5,13 @@
 const $meuForm = document.querySelector('form')
 
 $meuForm.addEventListener('submit', function criaPostController(infosDoEvento){
-    infosDoEvento.preventDefault
+    infosDoEvento.preventDefault();
     console.log('Criando post novo')
+    const conteudoDoPost = document.querySelector('.titulo-post').value
+    const tituloDoPost = document.querySelector('.titulo-post').value
+
+    alert(tituloDoPost)
+
 })
 
 
