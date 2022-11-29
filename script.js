@@ -4,6 +4,11 @@
 
 const $meuForm = document.querySelector('form')
 
+$meuForm.addEventListener('submit', function criaPostController(infosDoEvento){
+    infosDoEvento.preventDefault
+    console.log('Criando post novo')
+})
+
 
 
 const aloner = {
