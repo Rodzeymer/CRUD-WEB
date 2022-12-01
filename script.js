@@ -32,24 +32,32 @@ const aloner = {
 
         $listaDePosts.insertAdjacentHTML('afterbegin', 
         `<li data-id="${idInternoAqui}"class='titulo'>
+            <span contenteditable>
                 ${dados.title}
-            </li>`)
+            </span>
+        </li>`)
         const $titulo = document.querySelector('.titulo');
         $titulo.insertAdjacentHTML('beforeend', 
         `<ul>
-            <li class='conteudo'>
-                ${dados.content}
+            <li data-id="${idInternoAqui}" class='conteudo'>
+                <span contenteditable>
+                    ${dados.content}
+                </span>
             </li>
+            
         </ul>
-        <button class="btn-delete">Delete</button>
-        <span contenteditable>
-        </span>`)
+        <button class="btn-delete">Delete</button>`)
     },
     deletaPost(id){
         const listAtualizadaDePosts = aloner.posts.filter((postAtual)=>{
             return postAtual.id !== Number(id);
         })
         aloner.posts = listAtualizadaDePosts;
+    },
+    atualizaConteudoDoPost(id, novoConteudo){
+        const postPraAtualizar = aloner.posts.find((post) =>{
+            return post.id === Number(id);
+        })
     }
 };
 
@@ -78,6 +86,17 @@ $meuForm.addEventListener('submit', function criaPostController(infosDoEvento){
 //CRUD  - Read!
 aloner.recuperaPosts();
 
+//CRUD - Update
+document.querySelector('.listaDePosts').addEventListener('input', function (infosDoEvento){
+    console.log('Houve uma digitação')
+    const elementoAtual = infosDoEvento.target
+    const id = elementoAtual.parentNode.getAttribute('data-id')
+
+    console.log('Valor: ',elementoAtual.innerText);
+    console.log('Tag: ',elementoAtual.innerHTML);
+    console.log('ID: ', id)
+    aloner.atualizaConteudoDoPost(id, elementoAtual.innerText)
+});
 
 //CRUD - Delete
 
@@ -98,51 +117,3 @@ function (infosDoEvento){
 
     }
 })
-
-//CRUD - Update
-document.querySelector('.listaDePosts').addEventListener('input', function (infosDoEvento){
-    console.log('Houve uma digitação')
-    const elementoAtual = infosDoEvento.target
-
-    console.log(elementoAtual.innerText);
-});
-
-
-/*
-
-criaPost({owner:'Zeymer', content:'Segundo Post'})
-criaPost({owner:'Zeymer', content:'Terceiro Post'})
-
-};
-/*
-//CREATE
-
-//READ
-function pegaPosts (){
-    return aloner.posts
-}
-
-//UPDATE
-
-function atualizaConteudoPost(id, novoConteudo){
-    const postPraAtualizar = pegaPosts().find(post =>{
-        return post.id === id;
-    })
-
-console.log(pegaPosts().find)
-}
-
-atualizaConteudoPost(1, "Novo conteúdo do Post")
-
-
-//DELETE
-
-function apagaPost(id){
-    aloner.posts.pop(id)
-    aloner.posts = listAtualizadaDePosts
-    
-}
-
-apagaPost(2);
-console.log(aloner.posts)
-*/
