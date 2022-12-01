@@ -17,11 +17,11 @@ const aloner = {
         })
     },
     criaPost (dados, htmlOnly = false){   
-        const id = aloner.posts.length
+        const idInternoAqui = Date.now();
             if (!htmlOnly){
                 //Cria Posts na memória (Array/Objeto)
                 aloner.posts.push({
-                    id: aloner.posts.length+1,
+                    id: dados.id || idInternoAqui,
                     owner: dados.owner, 
                     title: dados.title,
                     content: dados.content
@@ -31,7 +31,7 @@ const aloner = {
         const $listaDePosts = document.querySelector('.listaDePosts');
 
         $listaDePosts.insertAdjacentHTML('afterbegin', 
-        `<li data-id="${id}"class='titulo'>
+        `<li data-id="${idInternoAqui}"class='titulo'>
                 ${dados.title}
             </li>`)
         const $titulo = document.querySelector('.titulo');
@@ -41,7 +41,9 @@ const aloner = {
                 ${dados.content}
             </li>
         </ul>
-        <button class="btn-delete">Delete</button>`)
+        <button class="btn-delete">Delete</button>
+        <span contenteditable>
+        </span>`)
     },
     deletaPost(id){
         const listAtualizadaDePosts = aloner.posts.filter((postAtual)=>{
@@ -87,11 +89,24 @@ function (infosDoEvento){
     if(isBtnDeleteClick){
         console.log('Clicou no botão de apagar')
         const id = elementoAtual.parentNode.getAttribute('data-id');
+        
+        //Manipula o Server-side/Banco de dados/Arquivo/Fonte        
         aloner.deletaPost({id})
+
+        //Manipula o View/Output/Tela do navegador
         elementoAtual.parentNode.remove()
 
     }
 })
+
+//CRUD - Update
+document.querySelector('.listaDePosts').addEventListener('input', function (infosDoEvento){
+    console.log('Houve uma digitação')
+    const elementoAtual = infosDoEvento.target
+
+    console.log(elementoAtual.innerText);
+});
+
 
 /*
 
