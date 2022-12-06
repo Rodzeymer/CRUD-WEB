@@ -23,71 +23,75 @@ const bloco = {
                 bloco.recados.push({
                     id: dados.id || idRecado,
                     autor: dados.autor, 
-                    title: dados.titulo,
+                    titulo: dados.titulo,
                     content: dados.conteudo
         });
     }   
         //Cria post no HTML
-        const $listaDePosts = document.querySelector('.listaDePosts');
+        const $listaDeRecados = document.querySelector('.listaDeRecados');
 
-        $listaDePosts.insertAdjacentHTML('afterbegin', 
-        `<li data-id="${idInternoAqui}"class='titulo'>
+        $listaDeRecados.insertAdjacentHTML('afterbegin', 
+        `<li data-id="${idRecado}"class='titulo'>
+        
             <span contenteditable>
-                ${dados.title}
+                ${dados.titulo}
             </span>
         </li>`)
         const $titulo = document.querySelector('.titulo');
         $titulo.insertAdjacentHTML('beforeend', 
         `<ul>
-            <li data-id="${idInternoAqui}" class='conteudo'>
+            <li data-id="${idRecado}" class='conteudo'>
                 <span contenteditable>
-                    ${dados.content}
+                    ${dados.conteudo}
                 </span>
             </li>
-            
+            </ul>
+            <ul>
+            <li class="autor">
+                ${dados.autor}</li>
+            </li>
         </ul>
         <button class="btn-delete">Delete</button>`)
     },
-    deletaPost(id){
-        const listAtualizadaDePosts = aloner.posts.filter((postAtual)=>{
-            return postAtual.id !== Number(id);
+    deletaRecado(id){
+        const listAtualizadaDeRecados = bloco.recados.filter((recadoAtual)=>{
+            return recadoAtual.id !== Number(id);
         })
-        aloner.posts = listAtualizadaDePosts;
+        bloco.recados = listAtualizadaDeRecados;
     },
     atualizaConteudoDoPost(id, novoConteudo){
-        const postPraAtualizar = aloner.posts.find((post) =>{
-            return post.id === Number(id);
+        const recadoPraAtualizar = bloco.recados.find((recado) =>{
+            return recado.id === Number(id);
         })
     }
 };
 
 
-
 //CRUD  - Create!
 const $meuForm = document.querySelector('form');
 
-$meuForm.addEventListener('submit', function criaPostController(infosDoEvento){
+$meuForm.addEventListener('submit', function criaRecadoController(infosDoEvento){
     infosDoEvento.preventDefault();
-    console.log('Criando post novo');
+    console.log('Criando recado novo');
     
-    const $campoPostTitulo= document.querySelector('input[name="titulo-post"]');
-    const $campoPostConteudo= document.querySelector('input[name="conteudo-post"]');
+    const $campoRecadoTitulo= document.querySelector('input[name="titulo-recado"]');
+    const $campoRecadoConteudo= document.querySelector('input[name="conteudo-recado"]');
 
-    console.log($campoPostTitulo.value)
-    console.log($campoPostConteudo.value)
+    console.log($campoRecadoTitulo.value)
+    console.log($campoRecadoConteudo.value)
 
-    aloner.criaPost({owner: 'Zeymer', title:$campoPostTitulo.value, content:$campoPostConteudo.value});
+    bloco.criaRecado({autor: 'Zeymer', titulo:$campoRecadoTitulo.value, conteudo:$campoRecadoConteudo.value});
 
     //Limpar campos
-    $campoPostTitulo.value = '';
-    $campoPostConteudo.value = '';
+    $campoRecadoTitulo.value = '';
+    $campoRecadoConteudo.value = '';
 })
 
 //CRUD  - Read!
-aloner.recuperaPosts();
+bloco.recuperaRecados();
 
 //CRUD - Update
-document.querySelector('.listaDePosts').addEventListener('input', function (infosDoEvento){
+document.querySelector('.listaDeRecados').addEventListener('input', function (infosDoEvento){
     console.log('Houve uma digitação')
     const elementoAtual = infosDoEvento.target
     const id = elementoAtual.parentNode.getAttribute('data-id')
@@ -95,12 +99,12 @@ document.querySelector('.listaDePosts').addEventListener('input', function (info
     console.log('Valor: ',elementoAtual.innerText);
     console.log('Tag: ',elementoAtual.innerHTML);
     console.log('ID: ', id)
-    aloner.atualizaConteudoDoPost(id, elementoAtual.innerText)
+    bloco.atualizaConteudoDoRecado(id, elementoAtual.innerText)
 });
 
 //CRUD - Delete
 
-document.querySelector('.listaDePosts').addEventListener('click', 
+document.querySelector('.listaDeRecados').addEventListener('click', 
 function (infosDoEvento){
     console.log('Houve um click')
     const isBtnDeleteClick = infosDoEvento.target.classList.contains('btn-delete')
@@ -110,7 +114,7 @@ function (infosDoEvento){
         const id = elementoAtual.parentNode.getAttribute('data-id');
         
         //Manipula o Server-side/Banco de dados/Arquivo/Fonte        
-        aloner.deletaPost({id})
+        bloco.deletaRecado({id})
 
         //Manipula o View/Output/Tela do navegador
         elementoAtual.parentNode.remove()
