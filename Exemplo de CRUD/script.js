@@ -1,30 +1,30 @@
 //CRUD
 
-//CRUD - App compilador de recados
+//Rede - Começando o microblog
 
-const bloco = {
-    autores:[
+const aloner = {
+    usuarios:[
         {
-            autor:'Zeymer',
+            username:'Zeymer',
         }
     ],
-    recados: [
+    posts: [
         
     ],
-    recuperaRecados(){
-        bloco.recados.forEach(({autor, titulo, conteudo})=>{
-        bloco.criaRecado({autor: autor, titulo: titulo, conteudo: conteudo}, true)
+    recuperaPosts(){
+        aloner.posts.forEach(({owner, title, content})=>{
+        aloner.criaPost({owner: owner, title: title, content: content}, true)
         })
     },
-    criaRecado(dados, htmlOnly = false){   
-        const idRecado = Date.now();
+    criaPost (dados, htmlOnly = false){   
+        const idInternoAqui = Date.now();
             if (!htmlOnly){
                 //Cria Posts na memória (Array/Objeto)
-                bloco.recados.push({
-                    id: dados.id || idRecado,
-                    autor: dados.autor, 
-                    title: dados.titulo,
-                    content: dados.conteudo
+                aloner.posts.push({
+                    id: dados.id || idInternoAqui,
+                    owner: dados.owner, 
+                    title: dados.title,
+                    content: dados.content
         });
     }   
         //Cria post no HTML
