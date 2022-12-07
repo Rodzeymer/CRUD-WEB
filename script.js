@@ -121,3 +121,7 @@ function (infosDoEvento){
 
     }
 })
+
+function imprimirBloco(){
+   window.print();
+}
