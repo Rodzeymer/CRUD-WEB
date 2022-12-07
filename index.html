@@ -7,15 +7,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Compilador de Recados Unificados em Documento - CRUD!</title>
 </head>
-<body>    
-    <form class="formulario">
-        <input type="text" name="titulo-recado" id="titulo-recado" placeholder="Digite o assunto do recado"/><br>
-        <input type="text" name="conteudo-recado" id="conteudo-recado" placeholder="Digite o conteúdo do recado"/><br>
-        <button type="submit">Anotar!</button>
-    </form>
-    <ul class="listaDeRecados">
-    </ul>
-    <input type="button" value="Imprimir" onClick="window.print()" />
+<body>
+   <section class="tituloBlog">
+    Compilador de Recados Unificados em Documento - CRUD!
+      </section> 
+    <section class="formulario">	    
+        <form>
+            <input type="text" name="titulo-recado" id="titulo-recado" placeholder="Digite o assunto do recado"/><br>
+            <input type="text" name="conteudo-recado" id="conteudo-recado" placeholder="Digite o conteúdo do recado"/><br>
+            <button type="submit">Anotar!</button>
+        </form>
+    </section>
+    <section class="recadosPublicados">
+        <ul class="listaDeRecados">
+        </ul>
+    </section>
+    <section class="imprimir">
+        <input type="button" value="Imprimir" onClick="window.print()" />
+    </section>
 </body>
 <script src="script.js"></script>
 </html>
